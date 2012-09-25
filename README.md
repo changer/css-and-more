@@ -1,7 +1,7 @@
 css-and-more
 ===========
 
-Show "And X more" as suffix to a list of elements, hiding a set number of items
+Show "And X more" as suffix to a list of elements, hiding overflowing number of items
 
 ## Usage
 
