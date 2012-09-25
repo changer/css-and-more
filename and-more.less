@@ -1,0 +1,50 @@
+html, body {
+  padding: 0;
+}
+
+body {
+  font-family: Arial;
+  font-size: 80%;
+  color: #222;
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+  border: 1px dotted #222;
+  li {
+    display: inline-block;
+    padding: 5px;
+  }
+  .and-more('And ', ' more', 14, 8, 5, 2);
+}
+
+.and-more(@prefix, @suffix, @visible) {
+  .and-more(@prefix, @suffix, @visible, @visible, @visible, @visible);
+}
+
+.and-more(@prefix, @suffix, @visible, @visible980, @visible768, @visible480) {
+
+  @visible_: @visible + 1;
+  @visible980_: @visible980 + 1;
+  @visible768_: @visible768 + 1;
+  @visible480_: @visible480 + 1;
+
+  @media screen and (min-width: 980px) { (~">:nth-child(1n + @{visible_})") { .and-more-helper(@prefix, @suffix); } }
+  @media screen and (max-width: 480px) { (~">:nth-child(1n + @{visible480_})") { .and-more-helper(@prefix, @suffix); } }
+  @media screen and (min-width: 768px) and (max-width: 979px) { (~">:nth-child(1n + @{visible980_})") { .and-more-helper(@prefix, @suffix); } }
+  @media screen and (min-width: 481px) and (max-width: 767px) { (~">:nth-child(1n + @{visible768_})") { .and-more-helper(@prefix, @suffix); } }
+
+}
+
+.and-more-helper(@prefix, @suffix) {
+  counter-increment: counter;
+  padding: 0;
+  > * {
+    display: none;
+  }
+  &:last-child:before {
+    display: block;
+    content: @prefix counter(counter) @suffix;
+  }
+}
